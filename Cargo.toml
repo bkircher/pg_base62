@@ -1,0 +1,36 @@
+[package]
+name = "pg_base62"
+version = "0.1.0"
+edition = "2021"
+description = "A PostgreSQL extension for encoding and decoding Base62."
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/bkircher/pg_base62"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+
+[[bin]]
+name = "pgrx_embed_pg_base62"
+path = "./src/bin/pgrx_embed.rs"
+
+[features]
+default = ["pg17"]
+pg17 = ["pgrx/pg17", "pgrx-tests/pg17"]
+pg_test = []
+
+[dependencies]
+pgrx = "=0.13.1"
+base62 = "2.2.1"
+
+[dev-dependencies]
+pgrx-tests = "=0.13.1"
+
+[profile.dev]
+panic = "unwind"
+
+[profile.release]
+panic = "unwind"
+opt-level = 3
+lto = "fat"
+codegen-units = 1
