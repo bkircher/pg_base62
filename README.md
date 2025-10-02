@@ -79,7 +79,7 @@ create extension pg_base62;
 
 Use it like this:
 
-```sql
+```raw
 select base62_encode('0199a3e9-85b2-764a-8ff0-a1fcd5f9a3b2'::uuid);
      base62_encode
 ───────────────────────
@@ -119,7 +119,7 @@ cargo pgrx test
 - **UUID Representation**: UUIDs are converted to 128-bit integers before
   encoding
 - **Output Length**: Base62 encoded UUIDs are up to 22 characters long (to be
-  precise: $\lceil \log_{62}(2^{128}) \rceil$ → 22 chars …most of the time)
+  precise: $\log_{62}(2^{128})$)
 
 ## License
 

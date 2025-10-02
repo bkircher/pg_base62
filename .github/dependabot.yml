@@ -1,0 +1,21 @@
+version: 2
+
+updates:
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    assignees:
+      - bkircher
+
+  - package-ecosystem: rust-toolchain
+    directory: "/"
+    schedule:
+      interval: weekly
+    assignees:
+      - bkircher
+    groups:
+      non-breaking-changes:
+        update-types:
+          - minor
+          - patch
