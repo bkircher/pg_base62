@@ -22,8 +22,33 @@ jobs:
           toolchain: stable
           components: clippy
 
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y --no-install-recommends \
+            build-essential \
+            pkg-config \
+            libssl-dev \
+            zlib1g-dev \
+            libreadline-dev \
+            clang
+
       - name: Install cargo-pgrx
         run: cargo install --locked cargo-pgrx
+
+      - name: Cache cargo pgrx home
+        uses: actions/cache@v4
+        with:
+          path: ~/.pgrx
+          key: pgrx-${{ runner.os }}-pg18-${{ hashFiles('Cargo.lock') }}
+
+      - name: Initialize cargo-pgrx (Postgres 18)
+        run: |
+          if [ ! -x "$HOME/.pgrx/pg18/pgrx-install/bin/pg_config" ]; then
+            cargo pgrx init --pg18 download
+          else
+            echo "Postgres 18 already initialized in $HOME/.pgrx"
+          fi
 
       - name: Cache cargo build
         uses: Swatinem/rust-cache@v2
