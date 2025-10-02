@@ -1,8 +1,8 @@
 [package]
 name = "pg_base62"
 version = "0.1.0"
-edition = "2021"
-description = "A PostgreSQL extension for encoding and decoding Base62."
+edition = "2024"
+description = "A PostgreSQL extension for encoding and decoding UUID to Base62"
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/bkircher/pg_base62"
@@ -15,16 +15,18 @@ name = "pgrx_embed_pg_base62"
 path = "./src/bin/pgrx_embed.rs"
 
 [features]
-default = ["pg17"]
-pg17 = ["pgrx/pg17", "pgrx-tests/pg17"]
+default = ["pg18"]
+pg18 = ["pgrx/pg18", "pgrx-tests/pg18"]
 pg_test = []
 
 [dependencies]
-pgrx = "=0.13.1"
-base62 = "2.2.1"
+pgrx = "=0.16.1"
+thiserror = "2"
+base62 = "2.2.3"
+uuid = { version = "1.18", features = ["std", "v7"] }
 
 [dev-dependencies]
-pgrx-tests = "=0.13.1"
+pgrx-tests = "=0.16.1"
 
 [profile.dev]
 panic = "unwind"
