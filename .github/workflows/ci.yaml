@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out source
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@v1
@@ -63,7 +63,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Spell check source files
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Check for spelling mistakes
         uses: crate-ci/typos@v1.39.0
