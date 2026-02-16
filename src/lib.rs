@@ -7,22 +7,12 @@ mod error;
 
 #[pg_extern]
 fn base62_encode(input: pgrx::Uuid) -> Result<String, Base62Error> {
-    let value = if input.len() == 16 {
-        let mut bytes = [0u8; 16];
-        bytes.copy_from_slice(input.as_bytes());
-        u128::from_be_bytes(bytes)
-    } else {
-        return Err(Base62Error::InvalidInput);
-    };
-
+    let value = u128::from_be_bytes(*input.as_bytes());
     let mut buf = [0u8; 22];
-    if let Ok(len) = base62::encode_bytes(value, &mut buf) {
-        core::str::from_utf8(&buf[..len])
-            .map(|s| s.to_string())
-            .map_err(|_| Base62Error::EncodeError)
-    } else {
-        Err(Base62Error::EncodeError)
-    }
+    let len = base62::encode_bytes(value, &mut buf).map_err(|_| Base62Error::EncodeError)?;
+    Ok(core::str::from_utf8(&buf[..len])
+        .expect("base62 is always valid ASCII")
+        .to_string())
 }
 
 #[pg_extern]
