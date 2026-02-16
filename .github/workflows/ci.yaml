@@ -36,7 +36,15 @@ jobs:
             libreadline-dev \
             clang
 
+      - name: Cache cargo-pgrx binary
+        id: cache-cargo-pgrx
+        uses: actions/cache@v5
+        with:
+          path: ~/.cargo/bin/cargo-pgrx
+          key: cargo-pgrx-${{ runner.os }}-${{ env.PGRX_VERSION }}
+
       - name: Install cargo-pgrx
+        if: steps.cache-cargo-pgrx.outputs.cache-hit != 'true'
         run: cargo install --locked cargo-pgrx --version ${{ env.PGRX_VERSION }}
 
       - name: Cache cargo pgrx home
