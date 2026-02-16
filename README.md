@@ -62,7 +62,7 @@ Decodes a Base62 encoded string back to a UUID.
 
 ```bash
 # Install pgrx if not already installed
-cargo install --locked cargo-pgrx
+cargo install --locked cargo-pgrx --version 0.17.0
 
 # Initialize pgrx for your PostgreSQL version
 cargo pgrx init

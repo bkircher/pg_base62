@@ -32,7 +32,6 @@ cargo pgrx test pg18
   - `base62_decode()`: Converts a Base62 encoded string to a UUID
 
 - **`src/error.rs`**: Custom error types using `thiserror`
-  - `InvalidInput`: UUID length validation failure
   - `EncodeError`: Base62 encoding failure
   - `DecodeError`: Base62 decoding failure
 
