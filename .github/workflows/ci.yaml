@@ -34,7 +34,7 @@ jobs:
             clang
 
       - name: Install cargo-pgrx
-        run: cargo install --locked cargo-pgrx
+        run: cargo install --locked cargo-pgrx --version 0.16.1
 
       - name: Cache cargo pgrx home
         uses: actions/cache@v5
